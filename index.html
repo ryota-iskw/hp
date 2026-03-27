@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryota ISHIKAWA</title>
+<meta name="description" content="Ryota ISHIKAWA – Data and AI systems architect designing large-scale enterprise platforms.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ryota ISHIKAWA">
+<meta property="og:description" content="Data and AI systems architect with a VLSI research background, designing large-scale enterprise platforms across multiple industries.">
+<meta property="og:url" content="https://ryota-ishikawa.jp/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{document.documentElement.dataset.theme=localStorage.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.lang=localStorage.lang||'en'}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.dataset.lang='en'}</script>
+<style>
+:root, [data-theme="dark"] {
+  --bg: #0f1117; --sur: #1a1d27; --sur2: #22263a; --bdr: #2e3249;
+  --acc: #6c8ef5; --acc2: #a78bfa; --txt: #e2e8f0; --mut: #8892b0; --hd: #cdd6f4;
+  --r: 10px;
+}
+[data-theme="light"] { --bg: #f5f6fa; --sur: #fff; --sur2: #edf0f8; --bdr: #d5daea; --acc: #4a6cf7; --acc2: #7c5cf5; --txt: #1e2233; --mut: #5a6582; --hd: #0f1424; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'M PLUS 1p', system-ui, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.7; -webkit-font-smoothing: antialiased; transition: background .2s, color .2s; padding-bottom: 44px; }
+a { color: var(--acc); text-decoration: none; }
+a:hover { color: var(--acc2); }
+
+/* Nav */
+#nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--bdr); display: flex; align-items: center; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.nav-brand { font-weight: 600; color: var(--hd); white-space: nowrap; }
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links a { display: block; padding: 6px 14px; border-radius: 6px; color: var(--mut); font-size: .875rem; font-weight: 500; }
+.nav-links a:hover { color: var(--txt); background: var(--sur2); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+#theme-btn, #lang-btn { background: none; border: 1px solid var(--bdr); border-radius: 6px; color: var(--mut); cursor: pointer; padding: 4px 10px; font-size: .8rem; transition: .2s; }
+#theme-btn:hover, #lang-btn:hover { border-color: var(--acc); color: var(--acc); }
+#nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; border: none; background: none; }
+#nav-toggle span { display: block; width: 22px; height: 2px; background: var(--mut); border-radius: 2px; }
+
+/* Nav submenu */
+.has-sub { position: relative; padding-bottom: 8px; }
+.sub-menu { display: none; position: absolute; top: 100%; left: 0; background: var(--sur); border: 1px solid var(--bdr); border-radius: 8px; padding: 6px; min-width: 200px; z-index: 200; list-style: none; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+.has-sub:hover .sub-menu { display: block; }
+.sub-menu a { display: block; padding: 7px 14px; border-radius: 5px; color: var(--mut); font-size: .825rem; white-space: nowrap; }
+.sub-menu a:hover { color: var(--txt); background: var(--sur2); }
+
+/* Layout */
+section { padding: 88px 0 72px; }
+.sec-title { font-size: 1.4rem; font-weight: 700; color: var(--hd); margin-bottom: 36px; display: flex; align-items: center; gap: 12px; }
+.sec-title::after { content: ''; flex: 1; height: 1px; background: var(--bdr); }
+.sec-alt { background: var(--sur); border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); }
+
+/* Language */
+[data-lang="en"] .ja { display: none; }
+[data-lang="ja"] .en { display: none; }
+
+/* About */
+#about { padding-top: 120px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.hero-tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, transparent); border: 1px solid color-mix(in srgb, var(--acc) 35%, transparent); border-radius: 100px; padding: 4px 14px; }
+.hero-tag-alt { color: var(--acc2); background: color-mix(in srgb, var(--acc2) 12%, transparent); border-color: color-mix(in srgb, var(--acc2) 35%, transparent); }
+.hero-name { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; color: var(--hd); line-height: 1.15; margin-bottom: 18px; }
+.hero-tagline { font-size: 1.05rem; color: var(--txt); max-width: 580px; margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
+.hero-body { display: flex; flex-direction: column; gap: 12px; max-width: 70%; margin-bottom: 24px; }
+.hero-body p { font-size: .935rem; color: var(--mut); line-height: 1.75; }
+.hero-mail { font-size: .875rem; color: var(--mut); margin-bottom: 28px; }
+.hero-mail-label { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+
+/* Expertise */
+.research-inner { max-width: 70%; }
+.tag-group-label { font-size: .72rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--mut); margin-bottom: 10px; }
+.tag-desc { color: var(--mut); font-size: .9rem; margin-bottom: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags-academic { margin-bottom: 28px; }
+.tag { font-size: .78rem; font-weight: 500; padding: 4px 13px; border-radius: 100px; background: var(--sur2); border: 1px solid var(--bdr); color: var(--mut); }
+
+/* Experience */
+.work-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.work-header-logo { fill: currentColor; width: 18px; height: 18px; flex-shrink: 0; }
+.work-header-name { font-size: .8rem; font-weight: 600; color: var(--mut); }
+.work-header-sep { font-size: .75rem; color: var(--mut); }
+.work-header-role { font-size: .78rem; color: var(--mut); }
+.work-tags { margin-bottom: 20px; }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.paper-list { display: flex; flex-direction: column; gap: 14px; }
+.card { display: block; background: var(--sur); border: 1px solid var(--bdr); border-radius: var(--r); padding: 18px 22px; color: var(--txt); transition: .2s; }
+[data-theme="light"] .paper-list .card,
+[data-theme="light"] .grid .card { background: var(--sur2); }
+.card:hover { border-color: var(--acc); background: var(--sur2); }
+.card-t { font-size: .95rem; font-weight: 600; color: var(--hd); margin-bottom: 8px; line-height: 1.5; }
+.card:hover .card-t { color: var(--acc); }
+.card-v { font-size: .8rem; color: var(--mut); }
+.card-yr { font-size: .72rem; font-weight: 600; color: var(--acc); margin-bottom: 6px; }
+.card-roles { font-size: .8rem; color: var(--mut); margin-top: 6px; }
+.card-tech { font-size: .75rem; color: var(--acc2); margin-top: 6px; font-weight: 500; }
+.badge { font-size: .68rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle; white-space: nowrap; background: color-mix(in srgb, var(--acc2) 15%, transparent); color: var(--acc2); border: 1px solid color-mix(in srgb, var(--acc2) 35%, transparent); }
+
+/* Publications */
+details[id] { scroll-margin-top: 80px; }
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: ' ▸'; font-size: .75rem; color: var(--mut); }
+details[open] summary::after { content: ' ▾'; }
+.pub-group { margin-bottom: 48px; }
+.pub-group:last-child { margin-bottom: 0; }
+.pub-group-title { font-size: 1rem; font-weight: 600; color: var(--hd); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr); }
+.pub-list { margin-top: 16px; }
+.count-badge { display: inline-block; font-size: .68rem; font-weight: 600; color: var(--mut); background: var(--sur2); border: 1px solid var(--bdr); border-radius: 100px; padding: 1px 8px; margin-left: 8px; vertical-align: middle; }
+.domestic-note { font-size: .85rem; font-weight: 400; color: var(--mut); }
+
+/* Links */
+.links-cats { display: flex; flex-direction: column; gap: 8px; }
+.link-cat-label { font-size: .72rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--mut); margin-top: 20px; margin-bottom: 12px; scroll-margin-top: 80px; }
+.links-cats .grid { margin-bottom: 0; }
+.link-card { display: flex; align-items: center; gap: 14px; }
+.link-logo { width: 24px; height: 24px; border-radius: 4px; flex-shrink: 0; object-fit: contain; }
+.link-logo-wide { width: auto; max-width: 72px; height: 24px; object-fit: contain; flex-shrink: 0; }
+.link-logo-si { fill: currentColor; width: 24px; height: 24px; flex-shrink: 0; transition: color .2s; }
+.card:hover .link-logo-si { color: var(--acc); }
+
+/* Footer & Back to top */
+.footer-copy { font-size: .78rem; color: var(--mut); text-align: center; }
+footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--bdr); padding: 10px 0; }
+#top { position: fixed; bottom: 24px; right: 24px; width: 38px; height: 38px; border-radius: 50%; background: var(--acc); color: #fff; font-size: 1rem; border: none; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 101; }
+#top.on { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 768px) {
+  section { padding: 80px 0 52px; }
+  #about { padding-top: 100px; }
+  #nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: var(--sur); border-bottom: 1px solid var(--bdr); flex-direction: column; padding: 10px; }
+  .nav-links.open { display: flex; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- SVG sprite -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="si-ibm" viewBox="0 0 24 24"><path d="M23.544 15.993c.038 0 .06-.017.06-.053v-.036c0-.035-.022-.052-.06-.052h-.09v.14zm-.09.262h-.121v-.498h.225c.112 0 .169.066.169.157 0 .079-.036.129-.09.15l.111.19h-.133l-.092-.17h-.07zm.434-.222v-.062c0-.2-.157-.357-.363-.357a.355.355 0 00-.363.357v.062c0 .2.156.358.363.358a.355.355 0 00.363-.358zm-.838-.03c0-.28.212-.492.475-.492.264 0 .475.213.475.491 0 .279-.211.491-.475.491a.477.477 0 01-.475-.49zM16.21 8.13l-.216-.624h-3.56v.624zm.413 1.19l-.216-.623h-3.973v.624zm2.65 7.147h3.107v-.624h-3.108zm0-1.192h3.107v-.623h-3.108zm0-1.19h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-3.555l-.175.504-.175-.504h-3.555v.624h1.865v-.574l.2.574h3.33l.2-.574zm1.864-1.815h-3.142l-.217.624h3.359zm-7.46 3.006h1.865v-.624h-1.865zm0 1.19h1.865v-.623h-1.865zm-1.243 1.191h3.108v-.623h-3.108zm0 1.192h3.108v-.624h-3.108zm6.386-8.961l-.216.624h3.776v-.624zm-.629 1.815h4.19v-.624h-3.974zm-4.514 1.19h3.359l-.216-.623h-3.143zm2.482 2.383h2.496l.218-.624h-2.932zm.417 1.19h1.662l.218-.623h-2.098zm.416 1.191h.83l.218-.623h-1.266zm.414 1.192l.217-.624h-.432zm-12.433-.006l4.578.006c.622 0 1.18-.237 1.602-.624h-6.18zm4.86-3v.624h2.092c0-.216-.03-.425-.083-.624zm-3.616.624h1.865v-.624H6.217zm3.617-3.573h2.008c.053-.199.083-.408.083-.624H9.834zm-3.617 0h1.865v-.624H6.217zM9.55 7.507H4.973v.624h6.18a2.36 2.36 0 00-1.602-.624zm2.056 1.191H4.973v.624h6.884a2.382 2.382 0 00-.25-.624zm-5.39 2.382v.624h4.87c.207-.176.382-.387.519-.624zm4.87 1.191h-4.87v.624h5.389a2.39 2.39 0 00-.519-.624zm-6.114 3.006h6.634c.11-.193.196-.402.25-.624H4.973zM0 8.13h4.352v-.624H0zm0 1.191h4.352v-.624H0zm1.243 1.191h1.865v-.624H1.243zm0 1.191h1.865v-.624H1.243zm0 1.19h1.865v-.623H1.243zm0 1.192h1.865v-.624H1.243zM0 15.276h4.352v-.623H0zm0 1.192h4.352v-.624H0Z"/></symbol>
+  <symbol id="si-googlescholar" viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></symbol>
+  <symbol id="si-ieee" viewBox="0 0 24 24"><path d="M4.74 14.973h-.05v-.064h.04c.022 0 .051.002.051.03 0 .028-.015.034-.04.034zm.101-.03c0-.06-.04-.079-.109-.079h-.099v.265h.057v-.111h.027l.061.111h.068l-.069-.116c.036-.003.064-.02.064-.07zm-.11.243c-.098 0-.176-.076-.176-.19 0-.113.078-.188.176-.188.095 0 .177.075.177.188 0 .114-.082.19-.177.19zm-.247-.19c0 .156.116.247.247.247.13 0 .247-.09.247-.247a.238.238 0 0 0-.247-.246.239.239 0 0 0-.247.246zM3.35 12.61c-.02.374-.025.72-.052 1.096.148.013.315.026.473.003l-.047-1.046-.009-.05c-.12.005-.234.01-.365-.003zm-.926-1.051c-.182.091-.45.23-.421.48.04.136.187.224.304.28.647.286 1.506.295 2.19.083.168-.065.395-.16.426-.366-.002-.171-.183-.279-.313-.344v-.008a.575.575 0 0 1 .144-.039v-.004c-.228-.041-.45-.101-.671-.16.043.097.073.2.109.301.067-.021.135-.038.207-.047.117.045.284.11.3.256.014.137-.136.204-.23.26-.501.181-1.065.2-1.588.06-.144-.045-.353-.103-.37-.287.102-.242.367-.292.588-.351-.114-.073-.23-.138-.34-.22-.119.007-.227.059-.335.106zm1.107-1.46l-.064.208-.326.932c.082.008.183 0 .263.008v.008l-.048 1.054.008.01c.104.01.234.016.34-.002V12.3l-.042-1.022.006-.035.286-.004a46.727 46.727 0 0 1-.414-1.14zm-.15-.469c.239-.163.453.065.639.195.717.578 1.393 1.238 1.909 1.984.065.096.094.246.036.355-.134.223-.314.426-.485.633v.011c-.426.454-.876.92-1.363 1.305-.237.144-.455.46-.761.264a11.007 11.007 0 0 1-1.927-1.82c-.096-.149-.246-.271-.312-.44-.093-.23.112-.394.229-.566.576-.71 1.291-1.407 2.034-1.92zm.6-.678l-.266-.376c-.032-.02-.073-.052-.108-.062-.079-.034-.163.007-.227.056l-.48.624c-.769.953-1.68 1.843-2.673 2.525-.079.061-.195.121-.22.222-.026.091.022.166.078.223a13.061 13.061 0 0 1 2.234 1.94c.12.127.217.252.335.37.198.265.43.53.613.813.057.06.066.158.156.187.07.024.156.04.223 0l.066-.067a13.269 13.269 0 0 1 3.034-3.06c.117-.103.34-.142.343-.336a.308.308 0 0 0-.137-.226l-.02-.003c-.6-.408-1.159-.87-1.686-1.394l-.582-.609a16.595 16.595 0 0 1-.684-.827zm.039.672c.206.157.42.336.61.518l.034.02a10.122 10.122 0 0 1 1.405 1.592c.065.1.122.212.086.343-.133.332-.403.597-.639.887-.51.55-1.05 1.081-1.652 1.506-.122.086-.287.166-.433.097-.444-.232-.818-.613-1.207-.96-.45-.417-.902-.904-1.244-1.413a.417.417 0 0 1-.064-.253c.044-.176.165-.32.279-.469.403-.514.897-1.002 1.397-1.447.011-.012.032-.036.05-.047.215-.186.428-.35.652-.511.234-.182.529-.031.726.137zm15.942-.197H24v1.028h-2.569v1.094h2.364v1.028H21.43V13.7H24v1.028h-4.038zm-4.859 0h4.037v1.028h-2.57v1.094h2.363v1.028H16.57V13.7h2.569v1.028h-4.037zm-4.86 0h4.037v1.028h-2.57v1.094h2.365v1.028H11.71V13.7h2.57v1.028h-4.038zm-2.24 0h1.469v5.301H8.004Z"/></symbol>
+  <symbol id="si-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  <symbol id="si-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+</svg>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <span class="nav-brand">Ryota ISHIKAWA</span>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about"><span class="en">About</span><span class="ja">自己紹介</span></a></li>
+      <li><a href="#research"><span class="en">Expertise</span><span class="ja">専門分野</span></a></li>
+      <li><a href="#work"><span class="en">Experience</span><span class="ja">職歴</span></a></li>
+      <li class="has-sub">
+        <a href="#publications"><span class="en">Publications</span><span class="ja">論文・発表</span></a>
+        <ul class="sub-menu">
+          <li><a href="#pub-journals"><span class="en">Journal Papers</span><span class="ja">学術論文</span></a></li>
+          <li><a href="#pub-intl"><span class="en">International Conferences</span><span class="ja">国際会議</span></a></li>
+          <li><a href="#pub-domestic"><span class="en">Domestic Conferences</span><span class="ja">国内会議</span></a></li>
+          <li><a href="#pub-awards"><span class="en">Awards &amp; Honors</span><span class="ja">受賞・表彰</span></a></li>
+        </ul>
+      </li>
+      <li class="has-sub">
+        <a href="#links"><span class="en">Links</span><span class="ja">リンク</span></a>
+        <ul class="sub-menu">
+          <li><a href="#links-current"><span class="en">Current Affiliation</span><span class="ja">現在の所属</span></a></li>
+          <li><a href="#links-previous"><span class="en">Previous Affiliations</span><span class="ja">過去の所属</span></a></li>
+          <li><a href="#links-profiles"><span class="en">Profiles</span><span class="ja">プロフィール</span></a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <button id="lang-btn" aria-label="Toggle language"></button>
+      <button id="theme-btn" aria-label="Toggle theme"></button>
+      <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section id="about">
+  <div class="wrap">
+    <div class="hero-tags">
+      <div class="hero-tag hero-tag-alt">IBM Japan – <span class="en">Senior IT Specialist</span><span class="ja">シニアITスペシャリスト</span></div>
+      <div class="hero-tag"><span class="en">Ph.D. – Waseda University</span><span class="ja">博士 (工学) – 早稲田大学</span></div>
+    </div>
+    <h1 class="hero-name">Ryota ISHIKAWA</h1>
+    <p class="hero-tagline en">Data and AI systems architect with a VLSI research background, designing large-scale enterprise platforms across multiple industries.</p>
+    <p class="hero-tagline ja">VLSIの研究背景を持つデータ・AIシステムアーキテクト。複数業界にわたる大規模エンタープライズプラットフォームを設計・構築する。</p>
+    <div class="hero-body">
+      <p class="en">Earned a Ph.D. from Waseda University (Engineering, 2022), with research focused on VLSI circuits and system simulation. Joined IBM Japan in 2020, spending two years working across both research and industry before completing the doctorate.</p>
+      <p class="ja">早稲田大学でVLSI回路とシステムシミュレーションを研究し、博士号 (工学、2022年) を取得。2020年に日本IBMへ入社し、約2年間にわたり研究と実務を並行して進め、博士課程を修了した。</p>
+      <p class="en">Designs and delivers scalable, secure data platforms that power analytics and AI capabilities in enterprise environments — spanning data infrastructure, business intelligence, and production AI systems across finance, government, manufacturing, and retail.</p>
+      <p class="ja">現在は、エンタープライズ環境における分析・AIを支えるスケーラブルかつセキュアなデータプラットフォームの設計・構築に携わっている。データ基盤、ビジネスインテリジェンス、AIに関わる領域で、金融、官公庁、製造、流通など多様な業界のシステム開発を経験してきた。</p>
+      <p class="en">Particular interest lies in the architecture of data and AI systems and how they evolve as foundational infrastructure for modern enterprises.</p>
+      <p class="ja">特に、データ・AIシステムのアーキテクチャが現代エンタープライズの基幹インフラとしてどのように進化していくかに強い関心を持っている。</p>
+    </div>
+    <div class="hero-mail">
+      <div class="hero-mail-label">Mail:</div>
+      <a href="mailto:contact@ryotaishikawa.com">contact@ryotaishikawa.com</a>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="sec-alt">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="en">Expertise</span><span class="ja">専門分野</span></h2>
+    <div class="research-inner">
+      <div class="tag-group-label"><span class="en">Academic Research</span><span class="ja">研究分野</span></div>
+      <p class="en tag-desc">Research interests include stochastic computing, VLSI design, image processing, machine learning, and error correction.</p>
+      <p class="ja tag-desc">ストカスティックコンピューティング、VLSI設計、画像処理、機械学習、誤り訂正などの分野において研究に取り組んだ。</p>
+      <div class="tags tags-academic">
+        <span class="tag">Stochastic Computing</span>
+        <span class="tag">VLSI Design</span>
+        <span class="tag">FPGA</span>
+        <span class="tag">Image Processing</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Error Correction</span>
+      </div>
+      <div class="tag-group-label"><span class="en">Industry Expertise</span><span class="ja">実務領域</span></div>
+      <p class="en tag-desc">Designing and building data platforms and AI systems in enterprise environments, grounded in the academic research above.</p>
+      <p class="ja tag-desc">エンタープライズ環境におけるデータプラットフォームおよびAIシステムの設計・構築。上記の研究分野がアーキテクチャ設計の基礎となっている。</p>
+      <div class="tags">
+        <span class="tag">Data Engineering</span>
+        <span class="tag">Cloud Architecture</span>
+        <span class="tag">Generative AI / LLM</span>
+        <span class="tag">Business Intelligence</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="en">Experience</span><span class="ja">職務経歴</span></h2>
+    <div class="work-header">
+      <svg class="work-header-logo"><use href="#si-ibm"/></svg>
+      <span class="work-header-name">IBM Japan</span>
+      <span class="work-header-sep">–</span>
+      <span class="work-header-role"><span class="en">Senior IT Specialist</span><span class="ja">シニアITスペシャリスト</span></span>
+    </div>
+    <div class="tags work-tags">
+      <span class="tag"><span class="en">Data Platforms</span><span class="ja">データプラットフォーム</span></span>
+      <span class="tag"><span class="en">AI Systems</span><span class="ja">AIシステム</span></span>
+      <span class="tag"><span class="en">Enterprise Architecture</span><span class="ja">エンタープライズアーキテクチャ</span></span>
+    </div>
+    <div class="hero-body" style="margin-top:20px;">
+      <p class="en">Senior IT Specialist at IBM Japan, delivering enterprise systems across a wide range of industries including financial services, government, manufacturing, and retail.</p>
+      <p class="ja">日本IBMにてシニアITスペシャリストとして、金融・官公庁・製造・流通など幅広い業界のエンタープライズシステム開発に従事。</p>
+      <p class="en">Most recently, served as Application Team Lead and Architect on a large-scale AI system development project for a financial institution. Led the definition of AI governance requirements aligned with regulatory standards and designed a multi-cloud architecture spanning AWS, Azure, and GCP. Directed development across a multi-team structure, establishing clear decision-making processes and enabling autonomous team execution. Brought in mid-project to stabilize and restructure struggling initiatives, successfully delivering them on schedule.</p>
+      <p class="en">Leverages English proficiency developed through early years in the United States and research presentations at international conferences to lead stakeholder engagement and development management in global projects.</p>
+      <p class="ja">直近では金融機関向けAIシステム開発プロジェクトにおいて、アプリケーションチームリード兼アーキテクトとして参画。法令に準拠したAIガバナンス要件の定義、およびAWS/Azure/GCPを横断するマルチクラウドアーキテクチャの設計を主導した。複数チームにまたがる大規模体制において開発をリードし、メンバーが自律的に動ける体制構築と意思決定プロセスの整備を推進した。</p>
+      <p class="ja">また、課題を抱えたプロジェクトへの途中参画において体制を立て直し、期限内に完遂した実績を持つ。幼少期の米国在住経験と国際会議での研究発表で培った英語力を活かし、グローバルプロジェクトにおけるステークホルダーとの折衝と開発管理も担った。</p>
+    </div>
+  </div>
+</section>
+
+<section id="publications" class="sec-alt">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="en">Publications</span><span class="ja">論文・発表</span></h2>
+
+    <div class="pub-group">
+      <details id="pub-journals" open>
+        <summary class="pub-group-title"><span class="en">Journal Papers</span><span class="ja">学術論文</span></summary>
+        <div class="paper-list pub-list">
+          <a href="https://www.jstage.jst.go.jp/article/ipsjtsldm/13/0/13_10/_article/" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Scalable Stochastic Number Duplicators for Accuracy-flexible Arithmetic Circuit Design</div>
+            <div class="card-v">IPSJ Transactions on System LSI Design Methodology, vol.13, pp.10–20, Feb. 2020</div>
+          </a>
+          <a href="http://search.ieice.org/bin/summary.php?id=e101-a_7_1002" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Stochastic Number Duplicators Based on Bit Re-arrangement Using Randomized Bit Streams</div>
+            <div class="card-v">IEICE Transactions on Fundamentals, vol.E101-A, no.7, pp.1002–1013, Jul. 2018</div>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <div class="pub-group">
+      <details id="pub-intl" open>
+        <summary class="pub-group-title"><span class="en">International Conferences</span><span class="ja">国際会議</span></summary>
+        <div class="grid pub-list">
+          <a href="https://ieeexplore.ieee.org/document/9068967" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Multi-Resolutional Image Format Using Stochastic Numbers and Its Hardware Implementation</div>
+            <div class="card-v">IEEE LASCAS, Feb. 2020</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/9045660" target="_blank" rel="noopener" class="card">
+            <div class="card-t">FPGA-based Heterogeneous Solver for Three-Dimensional Routing <span class="badge">co-author</span></div>
+            <div class="card-v">ASP-DAC, Jan. 2020</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/8977881" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Implementation of a ROS-Based Autonomous Vehicle on an FPGA Board <span class="badge">co-author</span></div>
+            <div class="card-v">FPT, Dec. 2019</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/8965039" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Error Correction System Using Stochastic Numbers in Symmetric Channels and Z Channels</div>
+            <div class="card-v">IEEE ICECS, Nov. 2019</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/8854450" target="_blank" rel="noopener" class="card">
+            <div class="card-t">Error Correction Coding of Stochastic Numbers Using BER Measurement</div>
+            <div class="card-v">IEEE IOLTS, Jul. 2019</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/8572289" target="_blank" rel="noopener" class="card">
+            <div class="card-t">2<sup>n</sup>RRR: Improved Stochastic Number Duplicator Based on Bit Re-arrangement</div>
+            <div class="card-v">NGCAS, Nov. 2018</div>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/8474263" target="_blank" rel="noopener" class="card">
+            <div class="card-t">An Effective Stochastic Number Duplicator and its Evaluations using Composite Arithmetic Circuits</div>
+            <div class="card-v">IEEE IOLTS, Jul. 2018</div>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <div class="pub-group">
+      <details id="pub-domestic">
+        <summary class="pub-group-title"><span class="en">Domestic Conferences <span class="domestic-note">(in Japanese)</span></span><span class="ja">国内会議</span></summary>
+        <div class="grid pub-list">
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=212629" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ストカスティック数を用いた絶対値関数及び不連続関数の実装と評価</div>
+            <div class="card-v">DAシンポジウム, 2021年9月</div>
+          </a>
+          <a href="https://www.ieice-taikai.jp/2020general/jpn/webpro/_html/ess.html#a_2_5" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ストカスティック数を用いた非対称通信路の誤り訂正</div>
+            <div class="card-v">IEICE総合大会, 2020年3月</div>
+          </a>
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=200194" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ストカスティック数を用いたステップ関数の実装と評価</div>
+            <div class="card-v">デザインガイア, 2019年11月</div>
+          </a>
+          <a href="http://www.sig-sldm.org/das2019/program.html#8A" target="_blank" rel="noopener" class="card">
+            <div class="card-t">配置配線のためのアンサンブルソルバシステム <span class="badge">co-author</span></div>
+            <div class="card-v">DAシンポジウム, 2019年8月</div>
+          </a>
+          <a href="https://lut.eee.u-ryukyu.ac.jp/traxwiki/index.php?ワークショップ" target="_blank" rel="noopener" class="card">
+            <div class="card-t">3次元配線パズルのためのFPGA協調システム</div>
+            <div class="card-v">人工知能とHW/SW協調設計WS, 2019年8月</div>
+          </a>
+          <a href="https://www.ieice.org/ken/paper/20190731L1oD/" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ストカスティック数を用いた再帰的分割による解像度解釈可変な画像形式</div>
+            <div class="card-v">IEICE VLD研究会, 2019年7月</div>
+          </a>
+          <a href="https://www.ieice.org/ken/paper/20190612c1ni/" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ストカスティック数を用いたZ通信路の誤り訂正</div>
+            <div class="card-v">IEICE DC研究会, 2019年6月</div>
+          </a>
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=195186" target="_blank" rel="noopener" class="card">
+            <div class="card-t">BER測定を用いたストカスティック数の誤り訂正</div>
+            <div class="card-v">IPSJ SLDM研究会, 2019年3月</div>
+          </a>
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=192591" target="_blank" rel="noopener" class="card">
+            <div class="card-t">2<sup>n</sup>RRR: 高度な並び替えにより誤り耐性を強化したストカスティック数複製器</div>
+            <div class="card-v">デザインガイア, 2018年12月</div>
+          </a>
+          <a href="http://www.sig-sldm.org/das2018/program.html#8A" target="_blank" rel="noopener" class="card">
+            <div class="card-t">ナンバーリンクソルバのためのFPGA協調システム</div>
+            <div class="card-v">DAシンポジウム, 2018年8月</div>
+          </a>
+          <a href="https://www.ieice.org/ken/paper/20180615i1eU/" target="_blank" rel="noopener" class="card">
+            <div class="card-t">再収斂による計算誤りに耐性を持つストカスティック数複製器を用いた活性化関数の実装と評価</div>
+            <div class="card-v">IEICE VLD研究会, 2018年6月</div>
+          </a>
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=186506" target="_blank" rel="noopener" class="card">
+            <div class="card-t">効率的なストカスティック数複製器と合成関数を用いたその評価</div>
+            <div class="card-v">IPSJ SLDM研究会, 2018年3月</div>
+          </a>
+          <a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&block_id=8&item_id=183280" target="_blank" rel="noopener" class="card">
+            <div class="card-t">乱数によるビット並び替えに基づくストカスティック数複製器</div>
+            <div class="card-v">DAシンポジウム, 2017年9月</div>
+          </a>
+          <a href="http://www.sig-sldm.org/das2017/program/program.html#8A" target="_blank" rel="noopener" class="card">
+            <div class="card-t">組込みデバイスとFPGAを用いたナンバーリンクソルバの設計と実装 <span class="badge">co-author</span></div>
+            <div class="card-v">DAシンポジウム, 2017年8月</div>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <div class="pub-group">
+      <details id="pub-awards">
+        <summary class="pub-group-title"><span class="en">Awards &amp; Honors</span><span class="ja">受賞・表彰</span></summary>
+        <div class="grid pub-list">
+          <a href="https://note.com/ipsj/n/n400fe1b7021d" target="_blank" rel="noopener" class="card">
+            <div class="card-t">2021年度研究会推薦博士論文速報</div>
+            <div class="card-v">情報処理学会, 2022年8月</div>
+          </a>
+          <a href="http://www.sig-sldm.org/tsldm/award.html" target="_blank" rel="noopener" class="card">
+            <div class="card-t">TSLDM Best Paper Award</div>
+            <div class="card-v">IPSJ Transactions on System LSI Design Methodology, Vol.13, Sep. 2020</div>
+          </a>
+          <a href="https://dasadc.github.io/adc2019/" target="_blank" rel="noopener" class="card">
+            <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 特別賞</div>
+            <div class="card-v">情報処理学会 DAシンポジウム, 2019年8月</div>
+          </a>
+          <a href="http://www.sig-sldm.org/Student-awards-list18.pdf" target="_blank" rel="noopener" class="card">
+            <div class="card-t">デザインガイア2018 優秀発表学生賞</div>
+            <div class="card-v">情報処理学会 SLDM研究会, 2019年8月</div>
+          </a>
+          <a href="http://www.ewe.or.jp/wp-content/uploads/2019/05/4291ae4ca8b65d6dd4900161ba99188f.pdf" target="_blank" rel="noopener" class="card">
+            <div class="card-t">修士課程修了にあたって</div>
+            <div class="card-v">早稲田電気工学会会報 第60号, 2019年3月</div>
+          </a>
+          <a href="https://dasadc.github.io/adc2018/ADC2018_result.pdf" target="_blank" rel="noopener" class="card">
+            <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 特別賞</div>
+            <div class="card-v">情報処理学会 DAシンポジウム, 2018年8月</div>
+          </a>
+          <a href="https://dasadc.github.io/adc2017/docs/ADC2017_result.pdf" target="_blank" rel="noopener" class="card">
+            <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 最優秀賞</div>
+            <div class="card-v">情報処理学会 DAシンポジウム, 2017年8月</div>
+          </a>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<section id="links">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="en">Links</span><span class="ja">リンク</span></h2>
+    <div class="links-cats">
+      <div id="links-current" class="link-cat-label"><span class="en">Current Affiliation</span><span class="ja">現在の所属</span></div>
+      <div class="grid">
+        <a href="https://www.ibm.com/jp-ja" target="_blank" rel="noopener" class="card link-card">
+          <svg class="link-logo-si"><use href="#si-ibm"/></svg>
+          <div>
+            <div class="card-t">IBM Japan <span class="badge">current</span></div>
+            <div class="card-v">日本アイ・ビー・エム株式会社</div>
+          </div>
+        </a>
+      </div>
+      <div id="links-previous" class="link-cat-label"><span class="en">Previous Affiliations</span><span class="ja">過去の所属</span></div>
+      <div class="grid">
+        <a href="https://www.fse.sci.waseda.ac.jp/" target="_blank" rel="noopener" class="card link-card">
+          <img class="link-logo-wide" src="https://www.waseda.jp/top/assets/themes/waseda-template-engine-main/img/logo-header-off.png" alt="" loading="lazy">
+          <div>
+            <div class="card-t">Waseda University</div>
+            <div class="card-v">早稲田大学 理工学術院</div>
+          </div>
+        </a>
+        <a href="https://www.togawa.cs.waseda.ac.jp/" target="_blank" rel="noopener" class="card link-card">
+          <img class="link-logo" src="https://www.google.com/s2/favicons?domain=togawa.cs.waseda.ac.jp&sz=32" alt="" loading="lazy">
+          <div>
+            <div class="card-t">Togawa Laboratory</div>
+            <div class="card-v">早稲田大学 戸川研究室</div>
+          </div>
+        </a>
+      </div>
+      <div id="links-profiles" class="link-cat-label"><span class="en">Profiles</span><span class="ja">プロフィール</span></div>
+      <div class="grid">
+        <a href="https://scholar.google.com/citations?user=pooHexkAAAAJ" target="_blank" rel="noopener" class="card link-card">
+          <svg class="link-logo-si"><use href="#si-googlescholar"/></svg>
+          <div class="card-t">Google Scholar</div>
+        </a>
+        <a href="https://ieeexplore.ieee.org/author/37086467926" target="_blank" rel="noopener" class="card link-card">
+          <svg class="link-logo-si"><use href="#si-ieee"/></svg>
+          <div class="card-t">IEEE Xplore</div>
+        </a>
+        <a href="https://github.com/ryota-iskw" target="_blank" rel="noopener" class="card link-card">
+          <svg class="link-logo-si"><use href="#si-github"/></svg>
+          <div class="card-t">GitHub</div>
+        </a>
+        <!--
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="card link-card">
+          <svg class="link-logo-si"><use href="#si-linkedin"/></svg>
+          <div class="card-t">LinkedIn</div>
+        </a>
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">&copy; 2017–<span id="copy-year"></span> Ryota ISHIKAWA &nbsp;–&nbsp; <span class="en">Last updated: Apr. 2026</span><span class="ja">最終更新: 2026年4月</span></div>
+  </div>
+</footer>
+
+<button id="top" aria-label="Back to top">↑</button>
+
+<script>
+const html = document.documentElement;
+const themeBtn = document.getElementById('theme-btn');
+const langBtn = document.getElementById('lang-btn');
+const topBtn = document.getElementById('top');
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+
+function setTheme(t) {
+  html.dataset.theme = t;
+  try { localStorage.theme = t; } catch(e) {}
+  themeBtn.textContent = t === 'dark' ? '☀ Light' : '☾ Dark';
+}
+
+function setLang(l) {
+  html.dataset.lang = l;
+  try { localStorage.lang = l; } catch(e) {}
+  langBtn.textContent = l === 'en' ? '日本語' : 'English';
+}
+
+setTheme(html.dataset.theme);
+setLang(html.dataset.lang);
+
+(function() {
+  const now = new Date();
+  const y = now.getFullYear();
+  document.getElementById('copy-year').textContent = y;
+})();
+
+themeBtn.addEventListener('click', () => setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+langBtn.addEventListener('click', () => setLang(html.dataset.lang === 'en' ? 'ja' : 'en'));
+topBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+window.addEventListener('scroll', () => topBtn.classList.toggle('on', scrollY > 400), {passive: true});
+
+navToggle.addEventListener('click', () => {
+  const o = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', o);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', false);
+}));
+
+document.querySelectorAll('.sub-menu a[href^="#pub-"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) { el.open = true; el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+  });
+});
+
+document.querySelectorAll('details[id]').forEach(d => {
+  const count = d.querySelectorAll('.card').length;
+  if (!count) return;
+  const badge = document.createElement('span');
+  badge.className = 'count-badge';
+  badge.textContent = count;
+  d.querySelector('summary').appendChild(badge);
+});
+</script>
+
+</body>
+</html>
