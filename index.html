@@ -265,6 +265,8 @@ section { padding: 88px 0 72px; }
 .tl-type-domestic { background: var(--sur2); color: var(--mut); border: 1px solid var(--bdr); }
 .tl-type-award { background: color-mix(in oklch, oklch(75% 0.15 80) 15%, transparent); color: oklch(72% 0.16 80); border: 1px solid color-mix(in oklch, oklch(75% 0.15 80) 40%, transparent); }
 [data-theme="light"] .tl-type-award { color: oklch(50% 0.13 75); }
+[data-lang="en"] .tl-item:has(.tl-type-domestic) { display: none; }
+[data-lang="en"] .tl-year:not(:has(.tl-item:not(:has(.tl-type-domestic)))) { display: none; }
 @media (max-width: 768px) {
   .pub-stats { grid-template-columns: repeat(2, 1fr); }
   .pub-timeline { padding-left: 72px; }
@@ -466,15 +468,15 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
     </div>
     <div class="pub-filter" role="tablist">
       <div class="pub-filter-group">
+        <button class="chip" type="button" data-filter="timeline"><span class="en">Timeline</span><span class="ja">タイムライン</span></button>
+      </div>
+      <div class="pub-filter-sep" aria-hidden="true"></div>
+      <div class="pub-filter-group">
         <button class="chip active" type="button" data-filter="all"><span class="en">All</span><span class="ja">すべて</span></button>
         <button class="chip" type="button" data-filter="pub-journals"><span class="en">Journals</span><span class="ja">学術論文</span></button>
         <button class="chip" type="button" data-filter="pub-intl"><span class="en">International</span><span class="ja">国際会議</span></button>
         <button class="chip" type="button" data-filter="pub-domestic"><span class="en">Domestic</span><span class="ja">国内会議</span></button>
         <button class="chip" type="button" data-filter="pub-awards"><span class="en">Awards</span><span class="ja">受賞・表彰</span></button>
-      </div>
-      <div class="pub-filter-sep" aria-hidden="true"></div>
-      <div class="pub-filter-group">
-        <button class="chip" type="button" data-filter="timeline"><span class="en">Timeline</span><span class="ja">タイムライン</span></button>
       </div>
     </div>
 
