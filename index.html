@@ -274,6 +274,10 @@ section { padding: 88px 0 72px; }
   .tl-items { grid-template-columns: 1fr; }
   .tag { font-size: .72rem; padding: 3px 11px; }
   body { overflow-x: clip; }
+  .pub-filter { flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; scrollbar-width: none; -ms-overflow-style: none; }
+  .pub-filter::-webkit-scrollbar { display: none; }
+  .pub-filter-group, .pub-filter-sep, .chip { flex-shrink: 0; white-space: nowrap; }
+  .pub-filter-group { flex-wrap: nowrap; }
 }
 .pub-group { margin-bottom: 48px; }
 .pub-group:last-child { margin-bottom: 0; }
@@ -775,11 +779,23 @@ function flashTarget(el) {
   t.classList.remove('flash');
   void t.offsetWidth;
   t.classList.add('flash');
-  setTimeout(() => t.classList.remove('flash'), 1200);
+  setTimeout(() => t.classList.remove('flash'), 1400);
+}
+function flashAfterScroll(target) {
+  if (!target) return;
+  let fired = false;
+  const trigger = () => { if (fired) return; fired = true; flashTarget(target); };
+  if ('onscrollend' in window) {
+    window.addEventListener('scrollend', trigger, { once: true });
+  }
+  // Fallback: distance-based timeout (covers browsers without scrollend)
+  const dist = Math.abs(target.getBoundingClientRect().top);
+  const dur = Math.min(1400, Math.max(300, dist * 0.8));
+  setTimeout(trigger, dur);
 }
 navLinks.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', () => {
-    setTimeout(() => flashTarget(document.getElementById(a.getAttribute('href').slice(1))), 120);
+    flashAfterScroll(document.getElementById(a.getAttribute('href').slice(1)));
   });
 });
 
@@ -871,7 +887,7 @@ function applyPubFilter(f, scrollTo) {
   }
   if (target) {
     target.scrollIntoView({behavior: 'smooth', block: 'start'});
-    setTimeout(() => flashTarget(target), 120);
+    flashAfterScroll(target);
   }
 
   // Release the height lock after the smooth scroll has settled
