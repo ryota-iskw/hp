@@ -107,7 +107,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .nav-links a { display: block; padding: 6px 14px; border-radius: 6px; color: var(--mut); font-size: .875rem; font-weight: 500; }
 .nav-links a:hover { color: var(--txt); background: var(--sur2); }
 .nav-links a.active { color: var(--acc); background: color-mix(in oklch, var(--acc) 12%, transparent); }
-.nav-links .sub-menu a.active { color: var(--acc); background: color-mix(in oklch, var(--acc) 12%, transparent); }
 .nav-right { display: flex; align-items: center; gap: 8px; }
 #theme-btn, #lang-btn { background: none; border: 1px solid var(--bdr); border-radius: 6px; color: var(--mut); cursor: pointer; padding: 0; font-size: .75rem; font-weight: 600; letter-spacing: .04em; transition: .2s; display: inline-flex; align-items: center; justify-content: center; height: 32px; min-width: 36px; }
 #lang-btn, #theme-btn { width: 36px; padding: 0; }
@@ -200,6 +199,7 @@ section { padding: 88px 0 72px; }
 .work-header-sep { font-size: .75rem; color: var(--mut); }
 .work-header-role { font-size: .78rem; color: var(--mut); }
 .work-tags { margin-bottom: 20px; }
+#experience .hero-body { margin-top: 20px; }
 
 /* Cards */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -347,8 +347,8 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
     <span class="nav-brand">Ryota ISHIKAWA</span>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about"><span class="en">About</span><span class="ja">自己紹介</span></a></li>
-      <li><a href="#research"><span class="en">Expertise</span><span class="ja">専門分野</span></a></li>
-      <li><a href="#work"><span class="en">Experience</span><span class="ja">職歴</span></a></li>
+      <li><a href="#expertise"><span class="en">Expertise</span><span class="ja">専門分野</span></a></li>
+      <li><a href="#experience"><span class="en">Experience</span><span class="ja">職歴</span></a></li>
       <li class="has-sub">
         <a href="#publications"><span class="en">Publications</span><span class="ja">論文・発表</span></a>
         <ul class="sub-menu">
@@ -407,7 +407,7 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
   </div>
 </section>
 
-<section id="research" class="sec-alt">
+<section id="expertise" class="sec-alt">
   <div class="wrap">
     <h2 class="sec-title"><span class="en">Expertise</span><span class="ja">専門分野</span></h2>
     <div class="research-inner">
@@ -435,7 +435,7 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
   </div>
 </section>
 
-<section id="work">
+<section id="experience">
   <div class="wrap">
     <h2 class="sec-title"><span class="en">Experience</span><span class="ja">職務経歴</span></h2>
     <div class="work-header">
@@ -449,7 +449,7 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
       <span class="tag"><span class="en">AI Systems</span><span class="ja">AIシステム</span></span>
       <span class="tag"><span class="en">Enterprise Architecture</span><span class="ja">エンタープライズアーキテクチャ</span></span>
     </div>
-    <div class="hero-body" style="margin-top:20px;">
+    <div class="hero-body">
       <p class="en">Senior IT Specialist at IBM Japan, delivering enterprise systems across a wide range of industries including financial services, government, manufacturing, and retail.</p>
       <p class="ja">日本IBMにてシニアITスペシャリストとして、金融・官公庁・製造・流通など幅広い業界のエンタープライズシステム開発に従事。</p>
       <p class="en">Recently, served as Application Team Lead and Architect on AI system development in the financial sector. Led the definition of AI governance requirements aligned with regulatory standards and designed a multi-cloud architecture across major public cloud platforms. Coordinated development across multiple teams, establishing clear decision-making processes and enabling autonomous team execution. Has experience taking over projects mid-stream and delivering them on schedule.</p>
@@ -719,6 +719,18 @@ const topBtn = document.getElementById('top');
 const navToggle = document.getElementById('nav-toggle');
 const navLinks = document.getElementById('nav-links');
 
+// --- Constants ---
+const EMAIL = 'contact@ryotaishikawa.com';
+const FLASH_MS = 1400;
+const COPY_OK_MS = 1500;
+const PUB_LOCK_MS = 900;
+
+// --- Cached DOM ---
+const pubTimelineEl = document.getElementById('pub-timeline');
+const pubSectionEl = document.getElementById('publications');
+const chipEls = document.querySelectorAll('.pub-filter .chip');
+const pubGroupEls = document.querySelectorAll('.pub-group');
+
 function setTheme(t) {
   html.dataset.theme = t;
   try { localStorage.theme = t; } catch(e) {}
@@ -760,14 +772,14 @@ const copyBtn = document.getElementById('copy-mail');
 if (copyBtn) {
   copyBtn.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText('contact@ryotaishikawa.com');
+      await navigator.clipboard.writeText(EMAIL);
       copyBtn.classList.add('ok');
       const icon = copyBtn.querySelector('use');
       icon.setAttribute('href', '#i-check');
       setTimeout(() => {
         copyBtn.classList.remove('ok');
         icon.setAttribute('href', '#i-copy');
-      }, 1500);
+      }, COPY_OK_MS);
     } catch(e) {}
   });
 }
@@ -776,10 +788,6 @@ navToggle.addEventListener('click', () => {
   const o = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', o);
 });
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', false);
-}));
 
 function flashTarget(el) {
   if (!el) return;
@@ -791,7 +799,7 @@ function flashTarget(el) {
   t.classList.remove('flash');
   void t.offsetWidth;
   t.classList.add('flash');
-  setTimeout(() => t.classList.remove('flash'), 1400);
+  setTimeout(() => t.classList.remove('flash'), FLASH_MS);
 }
 function flashAfterScroll(target) {
   if (!target) return;
@@ -802,17 +810,33 @@ function flashAfterScroll(target) {
   }
   // Fallback: distance-based timeout (covers browsers without scrollend)
   const dist = Math.abs(target.getBoundingClientRect().top);
-  const dur = Math.min(1400, Math.max(300, dist * 0.8));
+  const dur = Math.min(FLASH_MS, Math.max(300, dist * 0.8));
   setTimeout(trigger, dur);
 }
-navLinks.querySelectorAll('a[href^="#"]').forEach(a => {
+navLinks.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
-    flashAfterScroll(document.getElementById(a.getAttribute('href').slice(1)));
+    // Close mobile menu
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+    // Anchor links: flash + active highlight
+    const href = a.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    flashAfterScroll(document.getElementById(href.slice(1)));
+    if (typeof navHilite === 'undefined') return;
+    if (a.closest('.sub-menu')) {
+      navHilite.setSubActive(a);
+      const parentLink = a.closest('.has-sub')?.querySelector(':scope > a');
+      if (parentLink) navHilite.setTopActive(parentLink);
+    } else {
+      navHilite.setTopActive(a);
+      navHilite.setSubActive(null);
+    }
+    navHilite.pin();
   });
 });
 
 function buildTimeline() {
-  const tl = document.getElementById('pub-timeline');
+  const tl = pubTimelineEl;
   if (!tl || tl.dataset.built) return;
   const types = [
     { id: 'pub-journals', en: 'Journal', ja: '学術論文', cls: 'tl-type-journal' },
@@ -875,43 +899,64 @@ function buildTimeline() {
   }
 }
 
-let pubFilterTimer = null;
-function applyPubFilter(f, scrollTo) {
-  document.querySelectorAll('.pub-filter .chip').forEach(c => c.classList.toggle('active', c.dataset.filter === f));
-  const tl = document.getElementById('pub-timeline');
-  const pubSection = document.getElementById('publications');
+// --- Publications filter ---
+const SUB_LINK_FOR_FILTER = {
+  'all': null,
+  'pub-journals': '#pub-journals',
+  'pub-intl': '#pub-intl',
+  'pub-domestic': '#pub-domestic',
+  'pub-awards': '#pub-awards',
+  'timeline': '#pub-timeline',
+};
 
-  // Lock section height so visibility changes don't shrink the page (prevents scroll snap)
-  if (pubSection) pubSection.style.minHeight = pubSection.offsetHeight + 'px';
+function setChipActive(f) {
+  chipEls.forEach(c => c.classList.toggle('active', c.dataset.filter === f));
+}
 
+function applyPubVisibility(f) {
   if (f === 'timeline') {
     buildTimeline();
-    document.querySelectorAll('.pub-group').forEach(g => g.classList.add('is-hidden'));
-    tl?.classList.remove('is-hidden');
+    pubGroupEls.forEach(g => g.classList.add('is-hidden'));
+    pubTimelineEl?.classList.remove('is-hidden');
   } else {
-    tl?.classList.add('is-hidden');
-    document.querySelectorAll('.pub-group').forEach(g => {
-      const match = f === 'all' || g.id === f;
-      g.classList.toggle('is-hidden', !match);
-    });
+    pubTimelineEl?.classList.add('is-hidden');
+    pubGroupEls.forEach(g => g.classList.toggle('is-hidden', !(f === 'all' || g.id === f)));
   }
+}
+
+function mirrorPubFilterToNav(f) {
+  if (typeof navHilite === 'undefined') return;
+  const sel = SUB_LINK_FOR_FILTER[f];
+  navHilite.setTopActive(navLinks.querySelector(':scope > li > a[href="#publications"]'));
+  navHilite.setSubActive(sel ? document.querySelector(`.sub-menu a[href="${sel}"]`) : null);
+  navHilite.pin();
+}
+
+let pubFilterTimer = null;
+function applyPubFilter(f, scrollTo) {
+  setChipActive(f);
+  // Lock section height to prevent scroll snap during visibility change
+  if (pubSectionEl) pubSectionEl.style.minHeight = pubSectionEl.offsetHeight + 'px';
+  applyPubVisibility(f);
 
   let target = scrollTo;
   if (target === undefined && f !== 'all') {
-    target = f === 'timeline' ? tl : document.getElementById(f);
+    target = f === 'timeline' ? pubTimelineEl : document.getElementById(f);
   }
   if (target) {
     target.scrollIntoView({behavior: 'smooth', block: 'start'});
     flashAfterScroll(target);
   }
 
+  mirrorPubFilterToNav(f);
+
   // Release the height lock after the smooth scroll has settled
   if (pubFilterTimer) clearTimeout(pubFilterTimer);
   pubFilterTimer = setTimeout(() => {
-    if (pubSection) pubSection.style.minHeight = '';
-  }, 900);
+    if (pubSectionEl) pubSectionEl.style.minHeight = '';
+  }, PUB_LOCK_MS);
 }
-document.querySelectorAll('.pub-filter .chip').forEach(c => {
+chipEls.forEach(c => {
   c.addEventListener('click', () => applyPubFilter(c.dataset.filter));
 });
 
@@ -919,6 +964,7 @@ document.querySelectorAll('.sub-menu a[href^="#pub-"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
     const id = a.getAttribute('href').slice(1);
+    history.pushState(null, '', '#' + id);
     if (id === 'pub-timeline') {
       applyPubFilter('timeline');
     } else {
@@ -927,32 +973,70 @@ document.querySelectorAll('.sub-menu a[href^="#pub-"]').forEach(a => {
   });
 });
 
-(function() {
-  const topSections = ['about', 'research', 'work', 'publications', 'links']
+const navHilite = (function() {
+  const topSections = ['about', 'expertise', 'experience', 'publications', 'links']
     .map(id => document.getElementById(id)).filter(Boolean);
-  const topIo = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const link = navLinks.querySelector(`:scope > li > a[href="#${en.target.id}"]`);
-      if (!link) return;
-      navLinks.querySelectorAll(':scope > li > a.active').forEach(a => a.classList.remove('active'));
-      link.classList.add('active');
-    });
-  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-  topSections.forEach(s => topIo.observe(s));
-
   const subs = ['pub-journals', 'pub-intl', 'pub-domestic', 'pub-awards', 'pub-timeline']
     .map(id => document.getElementById(id)).filter(Boolean);
-  const subIo = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const link = document.querySelector(`.sub-menu a[href="#${en.target.id}"]`);
-      if (!link) return;
-      document.querySelectorAll('.sub-menu a.active').forEach(a => a.classList.remove('active'));
-      link.classList.add('active');
-    });
-  }, { rootMargin: '-50% 0px -45% 0px', threshold: 0 });
-  subs.forEach(s => subIo.observe(s));
+
+  let pinned = false;
+  let pinTeardown = null;
+  function pin() {
+    pinned = true;
+    if (pinTeardown) pinTeardown();
+    const resume = () => { pinned = false; teardown(); update(); };
+    const keyResume = (e) => {
+      if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key)) resume();
+    };
+    function teardown() {
+      window.removeEventListener('wheel', resume);
+      window.removeEventListener('touchstart', resume);
+      window.removeEventListener('keydown', keyResume);
+      pinTeardown = null;
+    }
+    pinTeardown = teardown;
+    window.addEventListener('wheel', resume, { once: true, passive: true });
+    window.addEventListener('touchstart', resume, { once: true, passive: true });
+    window.addEventListener('keydown', keyResume);
+  }
+
+  function setTopActive(link) {
+    navLinks.querySelectorAll(':scope > li > a.active').forEach(a => a.classList.remove('active'));
+    if (link) link.classList.add('active');
+  }
+  function setSubActive(link) {
+    document.querySelectorAll('.sub-menu a.active').forEach(a => a.classList.remove('active'));
+    if (link) link.classList.add('active');
+  }
+
+  function findMostVisible(sections) {
+    let best = null, bestArea = 0;
+    const vh = window.innerHeight;
+    for (const s of sections) {
+      const r = s.getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) continue;
+      const visTop = Math.max(0, r.top);
+      const visBottom = Math.min(vh, r.bottom);
+      const area = Math.max(0, visBottom - visTop);
+      if (area > bestArea) { bestArea = area; best = s; }
+    }
+    return best;
+  }
+
+  function update() {
+    if (pinned) return;
+    const topActive = findMostVisible(topSections);
+    setTopActive(topActive ? navLinks.querySelector(`:scope > li > a[href="#${topActive.id}"]`) : null);
+    const subActive = findMostVisible(subs);
+    setSubActive(subActive ? document.querySelector(`.sub-menu a[href="#${subActive.id}"]`) : null);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scrollend', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  return { setTopActive, setSubActive, pin };
 })();
 
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
