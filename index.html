@@ -265,8 +265,12 @@ section { padding: 88px 0 72px; }
 .tl-type-domestic { background: var(--sur2); color: var(--mut); border: 1px solid var(--bdr); }
 .tl-type-award { background: color-mix(in oklch, oklch(75% 0.15 80) 15%, transparent); color: oklch(72% 0.16 80); border: 1px solid color-mix(in oklch, oklch(75% 0.15 80) 40%, transparent); }
 [data-theme="light"] .tl-type-award { color: oklch(50% 0.13 75); }
-[data-lang="en"] .tl-item:has(.tl-type-domestic) { display: none; }
-[data-lang="en"] .tl-year:not(:has(.tl-item:not(:has(.tl-type-domestic)))) { display: none; }
+[data-lang="en"] .tl-item.en-hide { display: none; }
+[data-lang="en"] .tl-year:not(:has(.tl-item:not(.en-hide))) { display: none; }
+.tl-note { display: none; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 18px; margin-bottom: 24px; background: color-mix(in oklch, var(--mut) 7%, transparent); border: 1px solid var(--bdr); border-radius: 10px; font-size: .85rem; color: var(--mut); }
+[data-lang="en"] .tl-note { display: flex; }
+.tl-note-link { background: none; border: 1px solid color-mix(in oklch, var(--acc) 40%, var(--bdr)); color: var(--acc); padding: 5px 14px; border-radius: 100px; font-size: .8rem; cursor: pointer; font-family: inherit; font-weight: 500; transition: .2s; }
+.tl-note-link:hover { background: color-mix(in oklch, var(--acc) 12%, transparent); border-color: var(--acc); }
 @media (max-width: 768px) {
   .pub-stats { grid-template-columns: repeat(2, 1fr); }
   .pub-timeline { padding-left: 72px; }
@@ -448,10 +452,10 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
     <div class="hero-body" style="margin-top:20px;">
       <p class="en">Senior IT Specialist at IBM Japan, delivering enterprise systems across a wide range of industries including financial services, government, manufacturing, and retail.</p>
       <p class="ja">日本IBMにてシニアITスペシャリストとして、金融・官公庁・製造・流通など幅広い業界のエンタープライズシステム開発に従事。</p>
-      <p class="en">Most recently, served as Application Team Lead and Architect on a large-scale AI system development project for a financial institution. Led the definition of AI governance requirements aligned with regulatory standards and designed a multi-cloud architecture spanning AWS, Azure, and GCP. Directed development across a multi-team structure, establishing clear decision-making processes and enabling autonomous team execution. Brought in mid-project to stabilize and restructure struggling initiatives, successfully delivering them on schedule.</p>
+      <p class="en">Recently, served as Application Team Lead and Architect on AI system development in the financial sector. Led the definition of AI governance requirements aligned with regulatory standards and designed a multi-cloud architecture across major public cloud platforms. Coordinated development across multiple teams, establishing clear decision-making processes and enabling autonomous team execution. Has experience taking over projects mid-stream and delivering them on schedule.</p>
       <p class="en">Leverages English proficiency developed through early years in the United States and research presentations at international conferences to lead stakeholder engagement and development management in global projects.</p>
-      <p class="ja">直近では金融機関向けAIシステム開発プロジェクトにおいて、アプリケーションチームリード兼アーキテクトとして参画。法令に準拠したAIガバナンス要件の定義、およびAWS/Azure/GCPを横断するマルチクラウドアーキテクチャの設計を主導した。複数チームにまたがる大規模体制において開発をリードし、メンバーが自律的に動ける体制構築と意思決定プロセスの整備を推進した。</p>
-      <p class="ja">また、課題を抱えたプロジェクトへの途中参画において体制を立て直し、期限内に完遂した実績を持つ。幼少期の米国在住経験と国際会議での研究発表で培った英語力を活かし、グローバルプロジェクトにおけるステークホルダーとの折衝と開発管理も担った。</p>
+      <p class="ja">直近では金融分野のAIシステム開発において、アプリケーションチームリード兼アーキテクトとして参画。法令に準拠したAIガバナンス要件の定義、および主要パブリッククラウドを横断するマルチクラウドアーキテクチャの設計を主導した。複数チームにまたがる開発をリードし、メンバーが自律的に動ける体制構築と意思決定プロセスの整備を推進した。</p>
+      <p class="ja">プロジェクトへの途中参画から期限内に完遂した経験も持つ。幼少期の米国在住経験と国際会議での研究発表で培った英語力を活かし、グローバルプロジェクトにおけるステークホルダーとの折衝と開発管理も担った。</p>
     </div>
   </div>
 </section>
@@ -597,7 +601,7 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
             <div class="card-t">IPSJ Outstanding Paper Award</div>
             <div class="card-v"><span class="en">Information Processing Society of Japan, Mar. 2026</span><span class="ja">情報処理学会, 2026年3月</span></div>
           </a>
-          <a href="https://note.com/ipsj/n/n400fe1b7021d" target="_blank" rel="noopener" class="card">
+          <a href="https://note.com/ipsj/n/n400fe1b7021d" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">2021年度研究会推薦博士論文速報</div>
             <div class="card-v">情報処理学会, 2022年8月</div>
           </a>
@@ -605,30 +609,35 @@ footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background
             <div class="card-t">TSLDM Best Paper Award</div>
             <div class="card-v">IPSJ Transactions on System LSI Design Methodology, Vol.13, Sep. 2020</div>
           </a>
-          <a href="https://dasadc.github.io/adc2019/" target="_blank" rel="noopener" class="card">
+          <a href="https://dasadc.github.io/adc2019/" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 特別賞</div>
             <div class="card-v">情報処理学会 DAシンポジウム, 2019年8月</div>
           </a>
-          <a href="http://www.sig-sldm.org/Student-awards-list18.pdf" target="_blank" rel="noopener" class="card">
+          <a href="http://www.sig-sldm.org/Student-awards-list18.pdf" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">デザインガイア2018 優秀発表学生賞</div>
             <div class="card-v">情報処理学会 SLDM研究会, 2019年8月</div>
           </a>
-          <a href="http://www.ewe.or.jp/wp-content/uploads/2019/05/4291ae4ca8b65d6dd4900161ba99188f.pdf" target="_blank" rel="noopener" class="card">
+          <a href="http://www.ewe.or.jp/wp-content/uploads/2019/05/4291ae4ca8b65d6dd4900161ba99188f.pdf" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">修士課程修了にあたって</div>
             <div class="card-v">早稲田電気工学会会報 第60号, 2019年3月</div>
           </a>
-          <a href="https://dasadc.github.io/adc2018/ADC2018_result.pdf" target="_blank" rel="noopener" class="card">
+          <a href="https://dasadc.github.io/adc2018/ADC2018_result.pdf" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 特別賞</div>
             <div class="card-v">情報処理学会 DAシンポジウム, 2018年8月</div>
           </a>
-          <a href="https://dasadc.github.io/adc2017/docs/ADC2017_result.pdf" target="_blank" rel="noopener" class="card">
+          <a href="https://dasadc.github.io/adc2017/docs/ADC2017_result.pdf" target="_blank" rel="noopener" class="card is-ja-only">
             <div class="card-t">情報処理学会 DAシンポジウム アルゴリズムデザインコンテスト 最優秀賞</div>
             <div class="card-v">情報処理学会 DAシンポジウム, 2017年8月</div>
           </a>
         </div>
     </div>
 
-    <div class="pub-timeline is-hidden" id="pub-timeline" aria-live="polite"></div>
+    <div class="pub-timeline is-hidden" id="pub-timeline" aria-live="polite">
+      <p class="tl-note">
+        <span>Japanese-only entries (domestic conferences and awards without an English title) are hidden in English view.</span>
+        <button class="tl-note-link" type="button" id="tl-switch-ja">日本語に切替</button>
+      </p>
+    </div>
 
   </div>
 </section>
@@ -736,6 +745,7 @@ setLang(html.dataset.lang);
 
 themeBtn.addEventListener('click', () => setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
 langBtn.addEventListener('click', () => setLang(html.dataset.lang === 'en' ? 'ja' : 'en'));
+document.getElementById('tl-switch-ja')?.addEventListener('click', () => setLang('ja'));
 topBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 const ringFg = topBtn.querySelector('.ring .fg');
 const RING_C = 2 * Math.PI * 21;
@@ -838,6 +848,9 @@ function buildTimeline() {
     list.forEach(it => {
       const item = document.createElement('div');
       item.className = 'tl-item';
+      if (it.type.id === 'pub-domestic' || it.card.classList.contains('is-ja-only')) {
+        item.classList.add('en-hide');
+      }
       const clone = it.card.cloneNode(true);
       const badge = document.createElement('div');
       badge.className = 'tl-type ' + it.type.cls;
